@@ -23,6 +23,7 @@ ActionBarLayer actionBar;
 
 bool callEstablished;
 uint16_t elapsedTime = 0;
+uint16_t elapsedTimeVibe = 0;
 bool speakerOn;
 bool micOn;
 bool nameExist;
@@ -219,7 +220,12 @@ void callscreen_second()
 	}
 	else
 	{
-		if (speakerOn) vibes_double_pulse();
+		elapsedTimeVibe++;
+		if (speakerOn) {
+			if (elapsedTimeVibe <= 2) {
+				vibes_double_pulse();
+			}
+		}
 	}
 }
 
@@ -236,6 +242,7 @@ void callscreen_unload(Window* me)
 void callscreen_init()
 {
 	elapsedTime = 0;
+	elapsedTimeVibe = 0;
 	callEstablished = false;
 	speakerOn = true;
 	micOn = true;
